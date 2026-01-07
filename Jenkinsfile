@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         IMAGE_NAME = "wordpress-app"
-        DOCKERHUB_USER = "your_dockerhub"
+        DOCKERHUB_USER = "omwarkri123"
         TAG = "${BUILD_NUMBER}"
     }
 
