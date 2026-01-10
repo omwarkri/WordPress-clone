@@ -13,16 +13,20 @@ spec:
       labels:
         app: wordpress
     spec:
-      # Removed ECR image pull secret for local Minikube development
       containers:
       - name: wordpress
-        image: wordpress-app:local
+        image: wordpress:6.4-apache
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
         env:
         - name: WORDPRESS_DB_HOST
           value: mysql
+        - name: WORDPRESS_DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: mysql-database
         - name: WORDPRESS_DB_USER
           valueFrom:
             secretKeyRef:
@@ -33,8 +37,3 @@ spec:
             secretKeyRef:
               name: mysql-secret
               key: mysql-password
-        - name: WORDPRESS_DB_NAME
-          valueFrom:
-            secretKeyRef:
-              name: mysql-secret
-              key: mysql-database
